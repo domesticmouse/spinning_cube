@@ -133,7 +133,7 @@ class SpinningCubePainter extends CustomPainter {
     final vertexList = <double>[
       // layout: x, y, z, r, g, b
 
-      // Red Face
+      // Back Face, red
       -0.5, -0.5, -0.5, 1.0, 0.0, 0.0,
       0.5, -0.5, -0.5, 1.0, 0.0, 0.0,
       0.5, 0.5, -0.5, 1.0, 0.0, 0.0,
@@ -141,7 +141,7 @@ class SpinningCubePainter extends CustomPainter {
       -0.5, 0.5, -0.5, 1.0, 0.0, 0.0,
       -0.5, -0.5, -0.5, 1.0, 0.0, 0.0,
 
-      // Green Face
+      // Front Face, green
       -0.5, -0.5, 0.5, 0.0, 1.0, 0.0,
       0.5, 0.5, 0.5, 0.0, 1.0, 0.0,
       0.5, -0.5, 0.5, 0.0, 1.0, 0.0,
@@ -149,7 +149,7 @@ class SpinningCubePainter extends CustomPainter {
       -0.5, -0.5, 0.5, 0.0, 1.0, 0.0,
       -0.5, 0.5, 0.5, 0.0, 1.0, 0.0,
 
-      // Blue Face
+      // Left Face, blue
       -0.5, 0.5, 0.5, 0.0, 0.0, 1.0,
       -0.5, -0.5, -0.5, 0.0, 0.0, 1.0,
       -0.5, 0.5, -0.5, 0.0, 0.0, 1.0,
@@ -157,7 +157,7 @@ class SpinningCubePainter extends CustomPainter {
       -0.5, 0.5, 0.5, 0.0, 0.0, 1.0,
       -0.5, -0.5, 0.5, 0.0, 0.0, 1.0,
 
-      // Purple Face
+      // Right Face, purple
       0.5, 0.5, 0.5, 1.0, 0.0, 1.0,
       0.5, 0.5, -0.5, 1.0, 0.0, 1.0,
       0.5, -0.5, -0.5, 1.0, 0.0, 1.0,
@@ -165,7 +165,7 @@ class SpinningCubePainter extends CustomPainter {
       0.5, -0.5, 0.5, 1.0, 0.0, 1.0,
       0.5, 0.5, 0.5, 1.0, 0.0, 1.0,
 
-      // Cyan Face, bottom
+      // Bottom Face, cyan
       0.5, -0.5, -0.5, 0.0, 1.0, 1.0,
       -0.5, -0.5, -0.5, 0.0, 1.0, 1.0,
       0.5, -0.5, 0.5, 0.0, 1.0, 1.0,
@@ -173,7 +173,7 @@ class SpinningCubePainter extends CustomPainter {
       0.5, -0.5, 0.5, 0.0, 1.0, 1.0,
       -0.5, -0.5, -0.5, 0.0, 1.0, 1.0,
 
-      // Yellow Face, top
+      // Top Face, yellow
       -0.5, 0.5, -0.5, 1.0, 1.0, 0.0,
       0.5, 0.5, -0.5, 1.0, 1.0, 0.0,
       0.5, 0.5, 0.5, 1.0, 1.0, 0.0,
@@ -188,8 +188,9 @@ class SpinningCubePainter extends CustomPainter {
       throw Exception('Failed to create vertices device buffer');
     }
 
-    final model =
-        vm.Matrix4.rotationY(angle).multiplied(vm.Matrix4.rotationX(angle / 2));
+    final model = vm.Matrix4.identity()
+      ..rotateY(angle)
+      ..rotateX(angle / 2);
     final view = vm.Matrix4.translation(vm.Vector3(0.0, 0.0, -3.0));
     final projection =
         vm.makePerspectiveMatrix(vm.radians(45), size.aspectRatio, 0.1, 100);
