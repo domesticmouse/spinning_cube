@@ -102,16 +102,17 @@ class SpinningCubePainter extends CustomPainter {
       throw Exception('Failed to create color texture');
     }
 
-    // final depthTexture = gpu.gpuContext.createTexture(
-    //     gpu.StorageMode.devicePrivate, size.width.ceil(), size.height.ceil());
-    // if (depthTexture == null) {
-    //   throw Exception('Failed to create depth texture');
-    // }
+    final depthTexture = gpu.gpuContext.createTexture(
+        gpu.StorageMode.deviceTransient, size.width.ceil(), size.height.ceil(),
+        format: gpu.gpuContext.defaultDepthStencilFormat);
+    if (depthTexture == null) {
+      throw Exception('Failed to create depth texture');
+    }
 
     final renderTarget = gpu.RenderTarget.singleColor(
       gpu.ColorAttachment(
           texture: colorTexture, clearValue: backgroundColor.vec4),
-      // depthStencilAttachment: gpu.DepthStencilAttachment(texture: depthTexture),
+      depthStencilAttachment: gpu.DepthStencilAttachment(texture: depthTexture),
     );
 
     final commandBuffer = gpu.gpuContext.createCommandBuffer();
