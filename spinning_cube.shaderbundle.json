@@ -1,10 +1,10 @@
 {
     "SimpleVertex": {
         "type": "vertex",
-        "file": "shaders/simple.vert"
+        "file": "shaders/spinning_cube.vert"
     },
     "SimpleFragment": {
         "type": "fragment",
-        "file": "shaders/simple.frag"
+        "file": "shaders/spinning_cube.frag"
     }
 }
