@@ -24,13 +24,7 @@ gpu.ShaderLibrary get shaderLibrary {
 }
 
 void main() {
-  runApp(
-    const MaterialApp(
-      title: 'Spinning Cube Demo',
-      debugShowCheckedModeBanner: false,
-      home: MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -73,12 +67,16 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox.expand(
-        child: CustomPaint(
-          painter: SpinningCubePainter(
-            backgroundColor: _backgroundColor,
-            angle: _angle,
+    return MaterialApp(
+      title: 'Spinning Cube Demo',
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SizedBox.expand(
+          child: CustomPaint(
+            painter: SpinningCubePainter(
+              backgroundColor: _backgroundColor,
+              angle: _angle,
+            ),
           ),
         ),
       ),
