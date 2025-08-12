@@ -29,5 +29,6 @@ jobs:
         run: dart format --output none --set-exit-if-changed .
       - name: dart fix
         run: dart fix --dry-run
-      - name: Run tests
-        run: flutter test --enable-impeller
+      # Re-enable once https://github.com/flutter/flutter/issues/173650 is fixed
+      # - name: Run tests
+      #   run: flutter test --enable-flutter-gpu
