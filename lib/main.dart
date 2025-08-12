@@ -96,16 +96,10 @@ class SpinningCubePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final colorTexture = gpu.gpuContext.createTexture(
         gpu.StorageMode.devicePrivate, size.width.ceil(), size.height.ceil());
-    if (colorTexture == null) {
-      throw Exception('Failed to create color texture');
-    }
 
     final depthTexture = gpu.gpuContext.createTexture(
         gpu.StorageMode.deviceTransient, size.width.ceil(), size.height.ceil(),
         format: gpu.gpuContext.defaultDepthStencilFormat);
-    if (depthTexture == null) {
-      throw Exception('Failed to create depth texture');
-    }
 
     final renderTarget = gpu.RenderTarget.singleColor(
       gpu.ColorAttachment(
@@ -182,9 +176,6 @@ class SpinningCubePainter extends CustomPainter {
     final verticesDeviceBuffer = gpu.gpuContext.createDeviceBufferWithCopy(
       ByteData.sublistView(Float32List.fromList(vertexList)),
     );
-    if (verticesDeviceBuffer == null) {
-      throw Exception('Failed to create vertices device buffer');
-    }
 
     final model = vm.Matrix4.identity()
       ..rotateY(angle)
@@ -197,10 +188,6 @@ class SpinningCubePainter extends CustomPainter {
     final vertUniformsDeviceBuffer = gpu.gpuContext.createDeviceBufferWithCopy(
         ByteData.sublistView(Float32List.fromList(
             vertUniforms.expand((m) => m.storage).toList())));
-
-    if (vertUniformsDeviceBuffer == null) {
-      throw Exception('Failed to create vert uniforms device buffer');
-    }
 
     renderPass.bindPipeline(pipeline);
 
