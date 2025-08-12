@@ -10,7 +10,7 @@ void main(List<String> args) async {
     args,
     (config, output) async {
       await buildShaderBundleJson(
-          buildConfig: config,
+          buildInput: config,
           buildOutput: output,
           manifestFileName: 'spinning_cube.shaderbundle.json');
     },
