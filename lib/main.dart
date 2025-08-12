@@ -50,13 +50,11 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     )..repeat();
     _angleAnimation =
         Tween<double>(begin: 0.0, end: 8 * math.pi).animate(_angleController)
-          ..addListener(
-            () {
-              setState(() {
-                _angle = _angleAnimation.value;
-              });
-            },
-          );
+          ..addListener(() {
+            setState(() {
+              _angle = _angleAnimation.value;
+            });
+          });
   }
 
   @override
@@ -95,15 +93,23 @@ class SpinningCubePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final colorTexture = gpu.gpuContext.createTexture(
-        gpu.StorageMode.devicePrivate, size.width.ceil(), size.height.ceil());
+      gpu.StorageMode.devicePrivate,
+      size.width.ceil(),
+      size.height.ceil(),
+    );
 
     final depthTexture = gpu.gpuContext.createTexture(
-        gpu.StorageMode.deviceTransient, size.width.ceil(), size.height.ceil(),
-        format: gpu.gpuContext.defaultDepthStencilFormat);
+      gpu.StorageMode.deviceTransient,
+      size.width.ceil(),
+      size.height.ceil(),
+      format: gpu.gpuContext.defaultDepthStencilFormat,
+    );
 
     final renderTarget = gpu.RenderTarget.singleColor(
       gpu.ColorAttachment(
-          texture: colorTexture, clearValue: backgroundColor.vec4),
+        texture: colorTexture,
+        clearValue: backgroundColor.vec4,
+      ),
       depthStencilAttachment: gpu.DepthStencilAttachment(texture: depthTexture),
     );
 
@@ -181,13 +187,19 @@ class SpinningCubePainter extends CustomPainter {
       ..rotateY(angle)
       ..rotateX(angle / 2);
     final view = vm.Matrix4.translation(vm.Vector3(0.0, 0.0, -3.0));
-    final projection =
-        vm.makePerspectiveMatrix(vm.radians(45), size.aspectRatio, 0.1, 100);
+    final projection = vm.makePerspectiveMatrix(
+      vm.radians(45),
+      size.aspectRatio,
+      0.1,
+      100,
+    );
     final vertUniforms = [model, view, projection];
 
     final vertUniformsDeviceBuffer = gpu.gpuContext.createDeviceBufferWithCopy(
-        ByteData.sublistView(Float32List.fromList(
-            vertUniforms.expand((m) => m.storage).toList())));
+      ByteData.sublistView(
+        Float32List.fromList(vertUniforms.expand((m) => m.storage).toList()),
+      ),
+    );
 
     renderPass.bindPipeline(pipeline);
 
@@ -199,7 +211,9 @@ class SpinningCubePainter extends CustomPainter {
       lengthInBytes: verticesDeviceBuffer.sizeInBytes,
     );
     renderPass.bindVertexBuffer(
-        verticesView, vertexList.length ~/ floatsPerVertex);
+      verticesView,
+      vertexList.length ~/ floatsPerVertex,
+    );
 
     final vertUniformsView = gpu.BufferView(
       vertUniformsDeviceBuffer,
