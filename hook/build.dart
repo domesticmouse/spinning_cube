@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter_gpu_shaders/build.dart';
-import 'package:native_assets_cli/native_assets_cli.dart';
+import 'package:hooks/hooks.dart';
 
 void main(List<String> args) async {
   await build(args, (config, output) async {

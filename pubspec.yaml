@@ -12,7 +12,7 @@ dependencies:
   flutter_gpu:
     sdk: flutter  
   flutter_gpu_shaders: ^0.4.2
-  native_assets_cli: ^0.13.0
+  hooks: ^1.0.3
   vector_math: ^2.1.4
   xml: ^6.5.0
 
