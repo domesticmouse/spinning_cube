@@ -29,6 +29,8 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<!-- Enable flutter_gpu -->
+	<key>FLTEnableImpeller</key>
+	<true />
 	<key>FLTEnableFlutterGPU</key>
 	<true />
 </dict>
